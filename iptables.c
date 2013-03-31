@@ -1941,7 +1941,8 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 	if (command == CMD_APPEND
 			|| command == CMD_DELETE
 			|| command == CMD_INSERT
-			|| command == CMD_REPLACE) {
+			|| command == CMD_REPLACE
+			|| command == CMD_UPDATE) {
 		if (strcmp(chain, "PREROUTING") == 0
 				|| strcmp(chain, "INPUT") == 0) {
 			/* -o not valid with incoming packets. */
