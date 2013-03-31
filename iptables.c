@@ -801,12 +801,15 @@ insert_entry(const ipt_chainlabel chain,
 {
 	unsigned int i, j;
 	int ret = 1;
-
+	printf("It's really insert!\n");
+	//printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n". rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 	for (i = 0; i < nsaddrs; i++) {
+		printf("for i %d\n", i);
 		fw->ip.src.s_addr = saddrs[i].s_addr;
 		for (j = 0; j < ndaddrs; j++) {
+			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
-			if (verbose)
+			//if (verbose)
 				print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
@@ -828,12 +831,16 @@ update_entry(const ipt_chainlabel chain,
 {
 	unsigned int i, j;
 	int ret = 1;
+	printf("It's really update!\n");
+	//printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n". rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 
 	for (i = 0; i < nsaddrs; i++) {
+		printf("for i %d\n", i);
 		fw->ip.src.s_addr = saddrs[i].s_addr;
 		for (j = 0; j < ndaddrs; j++) {
+			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
-			if (verbose)
+			// if (verbose)
 				print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
@@ -2034,7 +2041,6 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 					*handle);
 			break;
 		case CMD_UPDATE:
-			printf("Oh, really update!!\n");
 			ret = update_entry(chain, e, rulenum - 1,
 					nsaddrs, saddrs, ndaddrs, daddrs,
 					options&OPT_VERBOSE,
