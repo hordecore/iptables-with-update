@@ -810,7 +810,7 @@ insert_entry(const ipt_chainlabel chain,
 			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
 			//if (verbose)
-				print_firewall_line(fw, handle);
+			print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
 	}
@@ -841,7 +841,7 @@ update_entry(const ipt_chainlabel chain,
 			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
 			// if (verbose)
-				print_firewall_line(fw, handle);
+			print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
 	}
@@ -1894,7 +1894,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 		xtables_error(PARAMETER_PROBLEM,
 				"nothing appropriate following !");
 
-	if (command & (CMD_REPLACE | CMD_INSERT | CMD_DELETE | CMD_APPEND)) {
+	if (command & (CMD_REPLACE | CMD_INSERT | CMD_DELETE | CMD_APPEND | CMD_UPDATE)) {
 		if (!(options & OPT_DESTINATION))
 			dhostnetworkmask = "0.0.0.0/0";
 		if (!(options & OPT_SOURCE))
