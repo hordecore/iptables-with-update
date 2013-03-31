@@ -59,7 +59,7 @@
 #define FMT_LINENUMBERS 0x0100
 
 #define FMT_PRINT_RULE (FMT_NOCOUNTS | FMT_OPTIONS | FMT_VIA \
-			| FMT_NUMERIC | FMT_NOTABLE)
+		| FMT_NUMERIC | FMT_NOTABLE)
 #define FMT(tab,notab) ((format) & FMT_NOTABLE ? (notab) : (tab))
 
 
@@ -80,7 +80,7 @@
 #define CMD_UPDATE		0x2000U
 #define NUMBER_OF_CMD	15
 static const char cmdflags[NUMBER_OF_CMD] = { 'I', 'D', 'D', 'R', 'A', 'L', 'F', 'Z',
-				 'N', 'X', 'P', 'E', 'S', 'U' };
+	'N', 'X', 'P', 'E', 'S', 'U' };
 
 #define OPT_NONE	0x00000U
 #define OPT_NUMERIC	0x00001U
@@ -165,36 +165,36 @@ static char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =
 /* Well, it's better than "Re: Linux vs FreeBSD" */
 {
 	/*     -n  -s  -d  -p  -j  -v  -x  -i  -o  -f --line -c */
-/*INSERT*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
-/*DELETE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x','x'},
-/*DELETE_NUM*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*REPLACE*/   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
-/*APPEND*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
-/*LIST*/      {' ','x','x','x','x',' ',' ','x','x','x',' ','x'},
-/*FLUSH*/     {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*ZERO*/      {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*NEW_CHAIN*/ {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*DEL_CHAIN*/ {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*SET_POLICY*/{'x','x','x','x','x',' ','x','x','x','x','x',' '},
-/*RENAME*/    {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*LIST_RULES*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*UPDATE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '} 
+	/*INSERT*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
+	/*DELETE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x','x'},
+	/*DELETE_NUM*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*REPLACE*/   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
+	/*APPEND*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
+	/*LIST*/      {' ','x','x','x','x',' ',' ','x','x','x',' ','x'},
+	/*FLUSH*/     {'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*ZERO*/      {'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*NEW_CHAIN*/ {'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*DEL_CHAIN*/ {'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*SET_POLICY*/{'x','x','x','x','x',' ','x','x','x','x','x',' '},
+	/*RENAME*/    {'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*LIST_RULES*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
+	/*UPDATE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '} 
 };
 
 static int inverse_for_options[NUMBER_OF_OPT] =
 {
-/* -n */ 0,
-/* -s */ IPT_INV_SRCIP,
-/* -d */ IPT_INV_DSTIP,
-/* -p */ IPT_INV_PROTO,
-/* -j */ 0,
-/* -v */ 0,
-/* -x */ 0,
-/* -i */ IPT_INV_VIA_IN,
-/* -o */ IPT_INV_VIA_OUT,
-/* -f */ IPT_INV_FRAG,
-/*--line*/ 0,
-/* -c */ 0,
+	/* -n */ 0,
+	/* -s */ IPT_INV_SRCIP,
+	/* -d */ IPT_INV_DSTIP,
+	/* -p */ IPT_INV_PROTO,
+	/* -j */ 0,
+	/* -v */ 0,
+	/* -x */ 0,
+	/* -i */ IPT_INV_VIA_IN,
+	/* -o */ IPT_INV_VIA_OUT,
+	/* -f */ IPT_INV_FRAG,
+	/*--line*/ 0,
+	/* -c */ 0,
 };
 
 #define opts iptables_globals.opts
@@ -214,7 +214,7 @@ int kernel_version;
 #endif
 #endif
 
-static const char *
+	static const char *
 proto_to_name(u_int8_t proto, int nolookup)
 {
 	unsigned int i;
@@ -237,7 +237,7 @@ enum {
 	IPT_DOTTED_MASK
 };
 
-static void
+	static void
 exit_tryhelp(int status)
 {
 	if (line != -1)
@@ -248,83 +248,83 @@ exit_tryhelp(int status)
 	exit(status);
 }
 
-static void
+	static void
 exit_printhelp(struct xtables_rule_match *matches)
 {
 	struct xtables_rule_match *matchp = NULL;
 	struct xtables_target *t = NULL;
 
 	printf("%s v%s\n\n"
-"Usage: %s -[AD] chain rule-specification [options]\n"
-"       %s -I chain [rulenum] rule-specification [options]\n"
-"       %s -R chain rulenum rule-specification [options]\n"
-"       %s -D chain rulenum [options]\n"
-"       %s -[LS] [chain [rulenum]] [options]\n"
-"       %s -[FZ] [chain] [options]\n"
-"       %s -[NX] chain\n"
-"       %s -E old-chain-name new-chain-name\n"
-"       %s -P chain target [options]\n"
-"       %s -h (print this help information)\n\n",
-	       prog_name, prog_vers, prog_name, prog_name,
-	       prog_name, prog_name, prog_name, prog_name,
-	       prog_name, prog_name, prog_name, prog_name);
+			"Usage: %s -[AD] chain rule-specification [options]\n"
+			"       %s -I chain [rulenum] rule-specification [options]\n"
+			"       %s -R chain rulenum rule-specification [options]\n"
+			"       %s -D chain rulenum [options]\n"
+			"       %s -[LS] [chain [rulenum]] [options]\n"
+			"       %s -[FZ] [chain] [options]\n"
+			"       %s -[NX] chain\n"
+			"       %s -E old-chain-name new-chain-name\n"
+			"       %s -P chain target [options]\n"
+			"       %s -h (print this help information)\n\n",
+			prog_name, prog_vers, prog_name, prog_name,
+			prog_name, prog_name, prog_name, prog_name,
+			prog_name, prog_name, prog_name, prog_name);
 
 	printf(
-"Commands:\n"
-"Either long or short options are allowed.\n"
-"  --append  -A chain		Append to chain\n"
-"  --delete  -D chain		Delete matching rule from chain\n"
-"  --delete  -D chain rulenum\n"
-"				Delete rule rulenum (1 = first) from chain\n"
-"  --insert  -I chain [rulenum]\n"
-"				Insert in chain as rulenum (default 1=first)\n"
-"  --update  -U chain [rulenum]\n"
-"				Try to insert new rule in chain as rulenum (default 1),\n"
-"                               if here no such rule, else zero counters on this rule.\n"
-"  --replace -R chain rulenum\n"
-"				Replace rule rulenum (1 = first) in chain\n"
-"  --list    -L [chain [rulenum]]\n"
-"				List the rules in a chain or all chains\n"
-"  --list-rules -S [chain [rulenum]]\n"
-"				Print the rules in a chain or all chains\n"
-"  --flush   -F [chain]		Delete all rules in  chain or all chains\n"
-"  --zero    -Z [chain]		Zero counters in chain or all chains\n"
-"  --new     -N chain		Create a new user-defined chain\n"
-"  --delete-chain\n"
-"            -X [chain]		Delete a user-defined chain\n"
-"  --policy  -P chain target\n"
-"				Change policy on chain to target\n"
-"  --rename-chain\n"
-"            -E old-chain new-chain\n"
-"				Change chain name, (moving any references)\n"
+			"Commands:\n"
+			"Either long or short options are allowed.\n"
+			"  --append  -A chain		Append to chain\n"
+			"  --delete  -D chain		Delete matching rule from chain\n"
+			"  --delete  -D chain rulenum\n"
+			"				Delete rule rulenum (1 = first) from chain\n"
+			"  --insert  -I chain [rulenum]\n"
+			"				Insert in chain as rulenum (default 1=first)\n"
+			"  --update  -U chain [rulenum]\n"
+			"				Try to insert new rule in chain as rulenum (default 1),\n"
+			"                               if here no such rule, else zero counters on this rule.\n"
+			"  --replace -R chain rulenum\n"
+			"				Replace rule rulenum (1 = first) in chain\n"
+			"  --list    -L [chain [rulenum]]\n"
+			"				List the rules in a chain or all chains\n"
+			"  --list-rules -S [chain [rulenum]]\n"
+			"				Print the rules in a chain or all chains\n"
+			"  --flush   -F [chain]		Delete all rules in  chain or all chains\n"
+			"  --zero    -Z [chain]		Zero counters in chain or all chains\n"
+			"  --new     -N chain		Create a new user-defined chain\n"
+			"  --delete-chain\n"
+			"            -X [chain]		Delete a user-defined chain\n"
+			"  --policy  -P chain target\n"
+			"				Change policy on chain to target\n"
+			"  --rename-chain\n"
+			"            -E old-chain new-chain\n"
+			"				Change chain name, (moving any references)\n"
 
-"Options:\n"
-"[!] --proto	-p proto	protocol: by number or name, eg. `tcp'\n"
-"[!] --source	-s address[/mask]\n"
-"				source specification\n"
-"[!] --destination -d address[/mask]\n"
-"				destination specification\n"
-"[!] --in-interface -i input name[+]\n"
-"				network interface name ([+] for wildcard)\n"
-" --jump	-j target\n"
-"				target for rule (may load target extension)\n"
+			"Options:\n"
+			"[!] --proto	-p proto	protocol: by number or name, eg. `tcp'\n"
+			"[!] --source	-s address[/mask]\n"
+			"				source specification\n"
+			"[!] --destination -d address[/mask]\n"
+			"				destination specification\n"
+			"[!] --in-interface -i input name[+]\n"
+			"				network interface name ([+] for wildcard)\n"
+			" --jump	-j target\n"
+			"				target for rule (may load target extension)\n"
 #ifdef IPT_F_GOTO
-"  --goto      -g chain\n"
-"                              jump to chain with no return\n"
+			"  --goto      -g chain\n"
+			"                              jump to chain with no return\n"
 #endif
-"  --match	-m match\n"
-"				extended match (may load extension)\n"
-"  --numeric	-n		numeric output of addresses and ports\n"
-"[!] --out-interface -o output name[+]\n"
-"				network interface name ([+] for wildcard)\n"
-"  --table	-t table	table to manipulate (default: `filter')\n"
-"  --verbose	-v		verbose mode\n"
-"  --line-numbers		print line numbers when listing\n"
-"  --exact	-x		expand numbers (display exact values)\n"
-"[!] --fragment	-f		match second or further fragments only\n"
-"  --modprobe=<command>		try to insert modules using this command\n"
-"  --set-counters PKTS BYTES	set the counter during insert/append\n"
-"[!] --version	-V		print package version.\n");
+			"  --match	-m match\n"
+			"				extended match (may load extension)\n"
+			"  --numeric	-n		numeric output of addresses and ports\n"
+			"[!] --out-interface -o output name[+]\n"
+			"				network interface name ([+] for wildcard)\n"
+			"  --table	-t table	table to manipulate (default: `filter')\n"
+			"  --verbose	-v		verbose mode\n"
+			"  --line-numbers		print line numbers when listing\n"
+			"  --exact	-x		expand numbers (display exact values)\n"
+			"[!] --fragment	-f		match second or further fragments only\n"
+			"  --modprobe=<command>		try to insert modules using this command\n"
+			"  --set-counters PKTS BYTES	set the counter during insert/append\n"
+			"[!] --version	-V		print package version.\n");
 
 	/* Print out any special helps. A user might like to be able
 	   to add a --help to the commandline, and see expected
@@ -342,7 +342,7 @@ exit_printhelp(struct xtables_rule_match *matches)
 	exit(0);
 }
 
-void
+	void
 iptables_exit_error(enum xtables_exittype status, const char *msg, ...)
 {
 	va_list args;
@@ -356,13 +356,13 @@ iptables_exit_error(enum xtables_exittype status, const char *msg, ...)
 		exit_tryhelp(status);
 	if (status == VERSION_PROBLEM)
 		fprintf(stderr,
-			"Perhaps iptables or your kernel needs to be upgraded.\n");
+				"Perhaps iptables or your kernel needs to be upgraded.\n");
 	/* On error paths, make sure that we don't leak memory */
 	xtables_free_opts(1);
 	exit(status);
 }
 
-static void
+	static void
 generic_opt_check(int command, int options)
 {
 	int i, j, legal = 0;
@@ -380,9 +380,9 @@ generic_opt_check(int command, int options)
 			if (!(options & (1<<i))) {
 				if (commands_v_options[j][i] == '+')
 					xtables_error(PARAMETER_PROBLEM,
-						   "You need to supply the `-%c' "
-						   "option for this command\n",
-						   optflags[i]);
+							"You need to supply the `-%c' "
+							"option for this command\n",
+							optflags[i]);
 			} else {
 				if (commands_v_options[j][i] != 'x') {
 					legal = 1;
@@ -395,12 +395,12 @@ generic_opt_check(int command, int options)
 
 		if (legal == -1)
 			xtables_error(PARAMETER_PROBLEM,
-				   "Illegal option `-%c' with this command\n",
-				   optflags[i]);
+					"Illegal option `-%c' with this command\n",
+					optflags[i]);
 	}
 }
 
-static char
+	static char
 opt2char(int option)
 {
 	const char *ptr;
@@ -409,7 +409,7 @@ opt2char(int option)
 	return *ptr;
 }
 
-static char
+	static char
 cmd2char(int option)
 {
 	const char *ptr;
@@ -418,15 +418,15 @@ cmd2char(int option)
 	return *ptr;
 }
 
-static void
+	static void
 add_command(unsigned int *cmd, const int newcmd, const int othercmds, 
-	    int invert)
+		int invert)
 {
 	if (invert)
 		xtables_error(PARAMETER_PROBLEM, "unexpected ! flag");
 	if (*cmd & (~othercmds))
 		xtables_error(PARAMETER_PROBLEM, "Cannot use -%c with -%c\n",
-			   cmd2char(newcmd), cmd2char(*cmd & (~othercmds)));
+				cmd2char(newcmd), cmd2char(*cmd & (~othercmds)));
 	*cmd |= newcmd;
 }
 
@@ -437,12 +437,12 @@ add_command(unsigned int *cmd, const int newcmd, const int othercmds,
  *	between calls to the same or other routines with a few exceptions:
  *	"host_to_addr", "parse_hostnetwork", and "parse_hostnetworkmask"
  *	return global static data.
-*/
+ */
 
 /* Christophe Burki wants `-p 6' to imply `-m tcp'.  */
-static struct xtables_match *
+	static struct xtables_match *
 find_proto(const char *pname, enum xtables_tryload tryload,
-	   int nolookup, struct xtables_rule_match **matches)
+		int nolookup, struct xtables_rule_match **matches)
 {
 	unsigned int proto;
 
@@ -458,46 +458,46 @@ find_proto(const char *pname, enum xtables_tryload tryload,
 }
 
 /* Can't be zero. */
-static int
+	static int
 parse_rulenumber(const char *rule)
 {
 	unsigned int rulenum;
 
 	if (!xtables_strtoui(rule, NULL, &rulenum, 1, INT_MAX))
 		xtables_error(PARAMETER_PROBLEM,
-			   "Invalid rule number `%s'", rule);
+				"Invalid rule number `%s'", rule);
 
 	return rulenum;
 }
 
-static const char *
+	static const char *
 parse_target(const char *targetname)
 {
 	const char *ptr;
 
 	if (strlen(targetname) < 1)
 		xtables_error(PARAMETER_PROBLEM,
-			   "Invalid target name (too short)");
+				"Invalid target name (too short)");
 
 	if (strlen(targetname)+1 > sizeof(ipt_chainlabel))
 		xtables_error(PARAMETER_PROBLEM,
-			   "Invalid target name `%s' (%u chars max)",
-			   targetname, (unsigned int)sizeof(ipt_chainlabel)-1);
+				"Invalid target name `%s' (%u chars max)",
+				targetname, (unsigned int)sizeof(ipt_chainlabel)-1);
 
 	for (ptr = targetname; *ptr; ptr++)
 		if (isspace(*ptr))
 			xtables_error(PARAMETER_PROBLEM,
-				   "Invalid target name `%s'", targetname);
+					"Invalid target name `%s'", targetname);
 	return targetname;
 }
 
-static void
+	static void
 set_option(unsigned int *options, unsigned int option, u_int8_t *invflg,
-	   int invert)
+		int invert)
 {
 	if (*options & option)
 		xtables_error(PARAMETER_PROBLEM, "multiple -%c flags not allowed",
-			   opt2char(option));
+				opt2char(option));
 	*options |= option;
 
 	if (invert) {
@@ -506,13 +506,13 @@ set_option(unsigned int *options, unsigned int option, u_int8_t *invflg,
 
 		if (!inverse_for_options[i])
 			xtables_error(PARAMETER_PROBLEM,
-				   "cannot have ! before -%c",
-				   opt2char(option));
+					"cannot have ! before -%c",
+					opt2char(option));
 		*invflg |= inverse_for_options[i];
 	}
 }
 
-static void
+	static void
 print_num(u_int64_t number, unsigned int format)
 {
 	if (format & FMT_KILOMEGAGIGA) {
@@ -538,7 +538,7 @@ print_num(u_int64_t number, unsigned int format)
 }
 
 
-static void
+	static void
 print_header(unsigned int format, const char *chain, struct iptc_handle *handle)
 {
 	struct ipt_counters counters;
@@ -588,10 +588,10 @@ print_header(unsigned int format, const char *chain, struct iptc_handle *handle)
 }
 
 
-static int
+	static int
 print_match(const struct ipt_entry_match *m,
-	    const struct ipt_ip *ip,
-	    int numeric)
+		const struct ipt_ip *ip,
+		int numeric)
 {
 	struct xtables_match *match =
 		xtables_find_match(m->u.user.name, XTF_TRY_LOAD, NULL);
@@ -610,12 +610,12 @@ print_match(const struct ipt_entry_match *m,
 }
 
 /* e is called `fw' here for historical reasons */
-static void
+	static void
 print_firewall(const struct ipt_entry *fw,
-	       const char *targname,
-	       unsigned int num,
-	       unsigned int format,
-	       struct iptc_handle *const handle)
+		const char *targname,
+		unsigned int num,
+		unsigned int format,
+		struct iptc_handle *const handle)
 {
 	struct xtables_target *target = NULL;
 	const struct ipt_entry_target *t;
@@ -626,7 +626,7 @@ print_firewall(const struct ipt_entry *fw,
 		target = xtables_find_target(targname, XTF_TRY_LOAD);
 	else
 		target = xtables_find_target(IPT_STANDARD_TARGET,
-		         XTF_LOAD_MUST_SUCCEED);
+				XTF_LOAD_MUST_SUCCEED);
 
 	t = ipt_get_target((struct ipt_entry *)fw);
 	flags = fw->ip.flags;
@@ -729,15 +729,15 @@ print_firewall(const struct ipt_entry *fw,
 			target->print(&fw->ip, t, format & FMT_NUMERIC);
 	} else if (t->u.target_size != sizeof(*t))
 		printf("[%u bytes of unknown target data] ",
-		       (unsigned int)(t->u.target_size - sizeof(*t)));
+				(unsigned int)(t->u.target_size - sizeof(*t)));
 
 	if (!(format & FMT_NONEWLINE))
 		fputc('\n', stdout);
 }
 
-static void
+	static void
 print_firewall_line(const struct ipt_entry *fw,
-		    struct iptc_handle *const h)
+		struct iptc_handle *const h)
 {
 	struct ipt_entry_target *t;
 
@@ -745,15 +745,15 @@ print_firewall_line(const struct ipt_entry *fw,
 	print_firewall(fw, t->u.user.name, 0, FMT_PRINT_RULE, h);
 }
 
-static int
+	static int
 append_entry(const ipt_chainlabel chain,
-	     struct ipt_entry *fw,
-	     unsigned int nsaddrs,
-	     const struct in_addr saddrs[],
-	     unsigned int ndaddrs,
-	     const struct in_addr daddrs[],
-	     int verbose,
-	     struct iptc_handle *handle)
+		struct ipt_entry *fw,
+		unsigned int nsaddrs,
+		const struct in_addr saddrs[],
+		unsigned int ndaddrs,
+		const struct in_addr daddrs[],
+		int verbose,
+		struct iptc_handle *handle)
 {
 	unsigned int i, j;
 	int ret = 1;
@@ -771,14 +771,14 @@ append_entry(const ipt_chainlabel chain,
 	return ret;
 }
 
-static int
+	static int
 replace_entry(const ipt_chainlabel chain,
-	      struct ipt_entry *fw,
-	      unsigned int rulenum,
-	      const struct in_addr *saddr,
-	      const struct in_addr *daddr,
-	      int verbose,
-	      struct iptc_handle *handle)
+		struct ipt_entry *fw,
+		unsigned int rulenum,
+		const struct in_addr *saddr,
+		const struct in_addr *daddr,
+		int verbose,
+		struct iptc_handle *handle)
 {
 	fw->ip.src.s_addr = saddr->s_addr;
 	fw->ip.dst.s_addr = daddr->s_addr;
@@ -788,16 +788,16 @@ replace_entry(const ipt_chainlabel chain,
 	return iptc_replace_entry(chain, fw, rulenum, handle);
 }
 
-static int
+	static int
 insert_entry(const ipt_chainlabel chain,
-	     struct ipt_entry *fw,
-	     unsigned int rulenum,
-	     unsigned int nsaddrs,
-	     const struct in_addr saddrs[],
-	     unsigned int ndaddrs,
-	     const struct in_addr daddrs[],
-	     int verbose,
-	     struct iptc_handle *handle)
+		struct ipt_entry *fw,
+		unsigned int rulenum,
+		unsigned int nsaddrs,
+		const struct in_addr saddrs[],
+		unsigned int ndaddrs,
+		const struct in_addr daddrs[],
+		int verbose,
+		struct iptc_handle *handle)
 {
 	unsigned int i, j;
 	int ret = 1;
@@ -815,16 +815,16 @@ insert_entry(const ipt_chainlabel chain,
 	return ret;
 }
 
-static int
+	static int
 update_entry(const ipt_chainlabel chain,
-	     struct ipt_entry *fw,
-	     unsigned int rulenum,
-	     unsigned int nsaddrs,
-	     const struct in_addr saddrs[],
-	     unsigned int ndaddrs,
-	     const struct in_addr daddrs[],
-	     int verbose,
-	     struct iptc_handle *handle)
+		struct ipt_entry *fw,
+		unsigned int rulenum,
+		unsigned int nsaddrs,
+		const struct in_addr saddrs[],
+		unsigned int ndaddrs,
+		const struct in_addr daddrs[],
+		int verbose,
+		struct iptc_handle *handle)
 {
 	unsigned int i, j;
 	int ret = 1;
@@ -843,7 +843,7 @@ update_entry(const ipt_chainlabel chain,
 }
 
 
-static unsigned char *
+	static unsigned char *
 make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
 {
 	/* Establish mask for comparison */
@@ -856,36 +856,36 @@ make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
 		size += IPT_ALIGN(sizeof(struct ipt_entry_match)) + matchp->match->size;
 
 	mask = xtables_calloc(1, size
-			 + IPT_ALIGN(sizeof(struct ipt_entry_target))
-			 + xtables_targets->size);
+			+ IPT_ALIGN(sizeof(struct ipt_entry_target))
+			+ xtables_targets->size);
 
 	memset(mask, 0xFF, sizeof(struct ipt_entry));
 	mptr = mask + sizeof(struct ipt_entry);
 
 	for (matchp = matches; matchp; matchp = matchp->next) {
 		memset(mptr, 0xFF,
-		       IPT_ALIGN(sizeof(struct ipt_entry_match))
-		       + matchp->match->userspacesize);
+				IPT_ALIGN(sizeof(struct ipt_entry_match))
+				+ matchp->match->userspacesize);
 		mptr += IPT_ALIGN(sizeof(struct ipt_entry_match)) + matchp->match->size;
 	}
 
 	memset(mptr, 0xFF,
-	       IPT_ALIGN(sizeof(struct ipt_entry_target))
-	       + xtables_targets->userspacesize);
+			IPT_ALIGN(sizeof(struct ipt_entry_target))
+			+ xtables_targets->userspacesize);
 
 	return mask;
 }
 
-static int
+	static int
 delete_entry(const ipt_chainlabel chain,
-	     struct ipt_entry *fw,
-	     unsigned int nsaddrs,
-	     const struct in_addr saddrs[],
-	     unsigned int ndaddrs,
-	     const struct in_addr daddrs[],
-	     int verbose,
-	     struct iptc_handle *handle,
-	     struct xtables_rule_match *matches)
+		struct ipt_entry *fw,
+		unsigned int nsaddrs,
+		const struct in_addr saddrs[],
+		unsigned int ndaddrs,
+		const struct in_addr daddrs[],
+		int verbose,
+		struct iptc_handle *handle,
+		struct xtables_rule_match *matches)
 {
 	unsigned int i, j;
 	int ret = 1;
@@ -906,11 +906,11 @@ delete_entry(const ipt_chainlabel chain,
 	return ret;
 }
 
-int
+	int
 for_each_chain(int (*fn)(const ipt_chainlabel, int, struct iptc_handle *),
-	       int verbose, int builtinstoo, struct iptc_handle *handle)
+		int verbose, int builtinstoo, struct iptc_handle *handle)
 {
-        int ret = 1;
+	int ret = 1;
 	const char *chain;
 	char *chains;
 	unsigned int i, chaincount = 0;
@@ -919,7 +919,7 @@ for_each_chain(int (*fn)(const ipt_chainlabel, int, struct iptc_handle *),
 	while (chain) {
 		chaincount++;
 		chain = iptc_next_chain(handle);
-        }
+	}
 
 	chains = xtables_malloc(sizeof(ipt_chainlabel) * chaincount);
 	i = 0;
@@ -928,23 +928,23 @@ for_each_chain(int (*fn)(const ipt_chainlabel, int, struct iptc_handle *),
 		strcpy(chains + i*sizeof(ipt_chainlabel), chain);
 		i++;
 		chain = iptc_next_chain(handle);
-        }
+	}
 
 	for (i = 0; i < chaincount; i++) {
 		if (!builtinstoo
-		    && iptc_builtin(chains + i*sizeof(ipt_chainlabel),
-				    handle) == 1)
+				&& iptc_builtin(chains + i*sizeof(ipt_chainlabel),
+					handle) == 1)
 			continue;
-	        ret &= fn(chains + i*sizeof(ipt_chainlabel), verbose, handle);
+		ret &= fn(chains + i*sizeof(ipt_chainlabel), verbose, handle);
 	}
 
 	free(chains);
-        return ret;
+	return ret;
 }
 
-int
+	int
 flush_entries(const ipt_chainlabel chain, int verbose,
-	      struct iptc_handle *handle)
+		struct iptc_handle *handle)
 {
 	if (!chain)
 		return for_each_chain(flush_entries, verbose, 1, handle);
@@ -954,9 +954,9 @@ flush_entries(const ipt_chainlabel chain, int verbose,
 	return iptc_flush_entries(chain, handle);
 }
 
-static int
+	static int
 zero_entries(const ipt_chainlabel chain, int verbose,
-	     struct iptc_handle *handle)
+		struct iptc_handle *handle)
 {
 	if (!chain)
 		return for_each_chain(zero_entries, verbose, 1, handle);
@@ -966,9 +966,9 @@ zero_entries(const ipt_chainlabel chain, int verbose,
 	return iptc_zero_entries(chain, handle);
 }
 
-int
+	int
 delete_chain(const ipt_chainlabel chain, int verbose,
-	     struct iptc_handle *handle)
+		struct iptc_handle *handle)
 {
 	if (!chain)
 		return for_each_chain(delete_chain, verbose, 0, handle);
@@ -978,9 +978,9 @@ delete_chain(const ipt_chainlabel chain, int verbose,
 	return iptc_delete_chain(chain, handle);
 }
 
-static int
+	static int
 list_entries(const ipt_chainlabel chain, int rulenum, int verbose, int numeric,
-	     int expanded, int linenumbers, struct iptc_handle *handle)
+		int expanded, int linenumbers, struct iptc_handle *handle)
 {
 	int found = 0;
 	unsigned int format;
@@ -1002,8 +1002,8 @@ list_entries(const ipt_chainlabel chain, int rulenum, int verbose, int numeric,
 		format |= FMT_LINENUMBERS;
 
 	for (this = iptc_first_chain(handle);
-	     this;
-	     this = iptc_next_chain(handle)) {
+			this;
+			this = iptc_next_chain(handle)) {
 		const struct ipt_entry *i;
 		unsigned int num;
 
@@ -1021,10 +1021,10 @@ list_entries(const ipt_chainlabel chain, int rulenum, int verbose, int numeric,
 			num++;
 			if (!rulenum || num == rulenum)
 				print_firewall(i,
-					       iptc_get_target(i, handle),
-					       num,
-					       format,
-					       handle);
+						iptc_get_target(i, handle),
+						num,
+						format,
+						handle);
 			i = iptc_next_rule(i, handle);
 		}
 		found = 1;
@@ -1049,7 +1049,7 @@ static void print_proto(u_int16_t proto, int invert)
 		for (i = 0; xtables_chain_protos[i].name != NULL; ++i)
 			if (xtables_chain_protos[i].num == proto) {
 				printf("%s-p %s ",
-				       invertstr, xtables_chain_protos[i].name);
+						invertstr, xtables_chain_protos[i].name);
 				return;
 			}
 
@@ -1058,7 +1058,7 @@ static void print_proto(u_int16_t proto, int invert)
 }
 
 #define IP_PARTS_NATIVE(n)			\
-(unsigned int)((n)>>24)&0xFF,			\
+	(unsigned int)((n)>>24)&0xFF,			\
 (unsigned int)((n)>>16)&0xFF,			\
 (unsigned int)((n)>>8)&0xFF,			\
 (unsigned int)((n)&0xFF)
@@ -1066,9 +1066,9 @@ static void print_proto(u_int16_t proto, int invert)
 #define IP_PARTS(n) IP_PARTS_NATIVE(ntohl(n))
 
 /* This assumes that mask is contiguous, and byte-bounded. */
-static void
+	static void
 print_iface(char letter, const char *iface, const unsigned char *mask,
-	    int invert)
+		int invert)
 {
 	unsigned int i;
 
@@ -1094,7 +1094,7 @@ print_iface(char letter, const char *iface, const unsigned char *mask,
 }
 
 static int print_match_save(const struct ipt_entry_match *e,
-			const struct ipt_ip *ip)
+		const struct ipt_ip *ip)
 {
 	struct xtables_match *match =
 		xtables_find_match(e->u.user.name, XTF_TRY_LOAD, NULL);
@@ -1108,8 +1108,8 @@ static int print_match_save(const struct ipt_entry_match *e,
 	} else {
 		if (e->u.match_size) {
 			fprintf(stderr,
-				"Can't find library for match `%s'\n",
-				e->u.user.name);
+					"Can't find library for match `%s'\n",
+					e->u.user.name);
 			exit(1);
 		}
 	}
@@ -1126,9 +1126,9 @@ static void print_ip(char *prefix, u_int32_t ip, u_int32_t mask, int invert)
 		return;
 
 	printf("%s%s %u.%u.%u.%u",
-		invert ? "! " : "",
-		prefix,
-		IP_PARTS(ip));
+			invert ? "! " : "",
+			prefix,
+			IP_PARTS(ip));
 
 	if (mask == 0xFFFFFFFFU) {
 		printf("/32 ");
@@ -1168,16 +1168,16 @@ void print_rule(const struct ipt_entry *e,
 			e->ip.invflags & IPT_INV_DSTIP);
 
 	print_iface('i', e->ip.iniface, e->ip.iniface_mask,
-		    e->ip.invflags & IPT_INV_VIA_IN);
+			e->ip.invflags & IPT_INV_VIA_IN);
 
 	print_iface('o', e->ip.outiface, e->ip.outiface_mask,
-		    e->ip.invflags & IPT_INV_VIA_OUT);
+			e->ip.invflags & IPT_INV_VIA_OUT);
 
 	print_proto(e->ip.proto, e->ip.invflags & IPT_INV_PROTO);
 
 	if (e->ip.flags & IPT_F_FRAG)
 		printf("%s-f ",
-		       e->ip.invflags & IPT_INV_FRAG ? "! " : "");
+				e->ip.invflags & IPT_INV_FRAG ? "! " : "");
 
 	/* Print matchinfo part */
 	if (e->target_offset) {
@@ -1194,7 +1194,7 @@ void print_rule(const struct ipt_entry *e,
 #ifdef IPT_F_GOTO
 		printf("-%c %s ", e->ip.flags & IPT_F_GOTO ? 'g' : 'j', target_name);
 #else
-		printf("-j %s ", target_name);
+	printf("-j %s ", target_name);
 #endif
 
 	/* Print targinfo part */
@@ -1205,7 +1205,7 @@ void print_rule(const struct ipt_entry *e,
 
 		if (!target) {
 			fprintf(stderr, "Can't find library for target `%s'\n",
-				t->u.user.name);
+					t->u.user.name);
 			exit(1);
 		}
 
@@ -1216,10 +1216,10 @@ void print_rule(const struct ipt_entry *e,
 			 * there is something to be saved, we just don't know
 			 * how to print it */
 			if (t->u.target_size !=
-			    sizeof(struct ipt_entry_target)) {
+					sizeof(struct ipt_entry_target)) {
 				fprintf(stderr, "Target `%s' is missing "
 						"save function\n",
-					t->u.user.name);
+						t->u.user.name);
 				exit(1);
 			}
 		}
@@ -1227,21 +1227,21 @@ void print_rule(const struct ipt_entry *e,
 	printf("\n");
 }
 
-static int
+	static int
 list_rules(const ipt_chainlabel chain, int rulenum, int counters,
-	     struct iptc_handle *handle)
+		struct iptc_handle *handle)
 {
 	const char *this = NULL;
 	int found = 0;
 
 	if (counters)
-	    counters = -1;		/* iptables -c format */
+		counters = -1;		/* iptables -c format */
 
 	/* Dump out chain names first,
 	 * thereby preventing dependency conflicts */
 	if (!rulenum) for (this = iptc_first_chain(handle);
-	     this;
-	     this = iptc_next_chain(handle)) {
+			this;
+			this = iptc_next_chain(handle)) {
 		if (chain && strcmp(this, chain) != 0)
 			continue;
 
@@ -1249,7 +1249,7 @@ list_rules(const ipt_chainlabel chain, int rulenum, int counters,
 			struct ipt_counters count;
 			printf("-P %s %s", this, iptc_get_policy(this, &count, handle));
 			if (counters)
-			    printf(" -c %llu %llu", (unsigned long long)count.pcnt, (unsigned long long)count.bcnt);
+				printf(" -c %llu %llu", (unsigned long long)count.pcnt, (unsigned long long)count.bcnt);
 			printf("\n");
 		} else {
 			printf("-N %s\n", this);
@@ -1257,8 +1257,8 @@ list_rules(const ipt_chainlabel chain, int rulenum, int counters,
 	}
 
 	for (this = iptc_first_chain(handle);
-	     this;
-	     this = iptc_next_chain(handle)) {
+			this;
+			this = iptc_next_chain(handle)) {
 		const struct ipt_entry *e;
 		int num = 0;
 
@@ -1270,7 +1270,7 @@ list_rules(const ipt_chainlabel chain, int rulenum, int counters,
 		while(e) {
 			num++;
 			if (!rulenum || num == rulenum)
-			    print_rule(e, handle, this, counters);
+				print_rule(e, handle, this, counters);
 			e = iptc_next_rule(e, handle);
 		}
 		found = 1;
@@ -1280,10 +1280,10 @@ list_rules(const ipt_chainlabel chain, int rulenum, int counters,
 	return found;
 }
 
-static struct ipt_entry *
+	static struct ipt_entry *
 generate_entry(const struct ipt_entry *fw,
-	       struct xtables_rule_match *matches,
-	       struct ipt_entry_target *target)
+		struct xtables_rule_match *matches,
+		struct ipt_entry_target *target)
 {
 	unsigned int size;
 	struct xtables_rule_match *matchp;
@@ -1385,478 +1385,478 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 	}
 
 	/* Suppress error messages: we may add new options if we
-           demand-load a protocol. */
+	   demand-load a protocol. */
 	opterr = 0;
 
 	while ((c = getopt_long(argc, argv,
-	   "-A:D:R:U:I:L::S::M:F::Z::N:X::E:P:Vh::o:p:s:d:j:i:fbvnt:m:xc:g:",
-					   opts, NULL)) != -1) {
+					"-A:D:R:U:I:L::S::M:F::Z::N:X::E:P:Vh::o:p:s:d:j:i:fbvnt:m:xc:g:",
+					opts, NULL)) != -1) {
 		switch (c) {
 			/*
 			 * Command selection
 			 */
-		case 'A':
-			add_command(&command, CMD_APPEND, CMD_NONE,
-				    invert);
-			chain = optarg;
-			break;
+			case 'A':
+				add_command(&command, CMD_APPEND, CMD_NONE,
+						invert);
+				chain = optarg;
+				break;
 
-		case 'D':
-			add_command(&command, CMD_DELETE, CMD_NONE,
-				    invert);
-			chain = optarg;
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!') {
-				rulenum = parse_rulenumber(argv[optind++]);
-				command = CMD_DELETE_NUM;
-			}
-			break;
+			case 'D':
+				add_command(&command, CMD_DELETE, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!') {
+					rulenum = parse_rulenumber(argv[optind++]);
+					command = CMD_DELETE_NUM;
+				}
+				break;
 
-		case 'R':
-			add_command(&command, CMD_REPLACE, CMD_NONE,
-				    invert);
-			chain = optarg;
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				rulenum = parse_rulenumber(argv[optind++]);
-			else
-				xtables_error(PARAMETER_PROBLEM,
-					   "-%c requires a rule number",
-					   cmd2char(CMD_REPLACE));
-			break;
+			case 'R':
+				add_command(&command, CMD_REPLACE, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					rulenum = parse_rulenumber(argv[optind++]);
+				else
+					xtables_error(PARAMETER_PROBLEM,
+							"-%c requires a rule number",
+							cmd2char(CMD_REPLACE));
+				break;
 
-		case 'I':
-			add_command(&command, CMD_INSERT, CMD_NONE,
-				    invert);
-			chain = optarg;
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				rulenum = parse_rulenumber(argv[optind++]);
-			else rulenum = 1;
-			break;
+			case 'I':
+				add_command(&command, CMD_INSERT, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					rulenum = parse_rulenumber(argv[optind++]);
+				else rulenum = 1;
+				break;
 
-		case 'L':
-			add_command(&command, CMD_LIST, CMD_ZERO,
-				    invert);
-			if (optarg) chain = optarg;
-			else if (optind < argc && argv[optind][0] != '-'
-				 && argv[optind][0] != '!')
-				chain = argv[optind++];
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				rulenum = parse_rulenumber(argv[optind++]);
-			break;
+			case 'L':
+				add_command(&command, CMD_LIST, CMD_ZERO,
+						invert);
+				if (optarg) chain = optarg;
+				else if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					chain = argv[optind++];
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					rulenum = parse_rulenumber(argv[optind++]);
+				break;
 
-		case 'S':
-			add_command(&command, CMD_LIST_RULES, CMD_ZERO,
-				    invert);
-			if (optarg) chain = optarg;
-			else if (optind < argc && argv[optind][0] != '-'
-				 && argv[optind][0] != '!')
-				chain = argv[optind++];
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				rulenum = parse_rulenumber(argv[optind++]);
-			break;
+			case 'S':
+				add_command(&command, CMD_LIST_RULES, CMD_ZERO,
+						invert);
+				if (optarg) chain = optarg;
+				else if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					chain = argv[optind++];
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					rulenum = parse_rulenumber(argv[optind++]);
+				break;
 
-		case 'F':
-			add_command(&command, CMD_FLUSH, CMD_NONE,
-				    invert);
-			if (optarg) chain = optarg;
-			else if (optind < argc && argv[optind][0] != '-'
-				 && argv[optind][0] != '!')
-				chain = argv[optind++];
-			break;
+			case 'F':
+				add_command(&command, CMD_FLUSH, CMD_NONE,
+						invert);
+				if (optarg) chain = optarg;
+				else if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					chain = argv[optind++];
+				break;
 
-		case 'Z':
-			add_command(&command, CMD_ZERO, CMD_LIST|CMD_LIST_RULES,
-				    invert);
-			if (optarg) chain = optarg;
-			else if (optind < argc && argv[optind][0] != '-'
-				&& argv[optind][0] != '!')
-				chain = argv[optind++];
-			break;
+			case 'Z':
+				add_command(&command, CMD_ZERO, CMD_LIST|CMD_LIST_RULES,
+						invert);
+				if (optarg) chain = optarg;
+				else if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					chain = argv[optind++];
+				break;
 
-		case 'N':
-			if (optarg && (*optarg == '-' || *optarg == '!'))
-				xtables_error(PARAMETER_PROBLEM,
-					   "chain name not allowed to start "
-					   "with `%c'\n", *optarg);
-			if (xtables_find_target(optarg, XTF_TRY_LOAD))
-				xtables_error(PARAMETER_PROBLEM,
-					   "chain name may not clash "
-					   "with target name\n");
-			add_command(&command, CMD_NEW_CHAIN, CMD_NONE,
-				    invert);
-			chain = optarg;
-			break;
+			case 'N':
+				if (optarg && (*optarg == '-' || *optarg == '!'))
+					xtables_error(PARAMETER_PROBLEM,
+							"chain name not allowed to start "
+							"with `%c'\n", *optarg);
+				if (xtables_find_target(optarg, XTF_TRY_LOAD))
+					xtables_error(PARAMETER_PROBLEM,
+							"chain name may not clash "
+							"with target name\n");
+				add_command(&command, CMD_NEW_CHAIN, CMD_NONE,
+						invert);
+				chain = optarg;
+				break;
 
-		case 'X':
-			add_command(&command, CMD_DELETE_CHAIN, CMD_NONE,
-				    invert);
-			if (optarg) chain = optarg;
-			else if (optind < argc && argv[optind][0] != '-'
-				 && argv[optind][0] != '!')
-				chain = argv[optind++];
-			break;
+			case 'X':
+				add_command(&command, CMD_DELETE_CHAIN, CMD_NONE,
+						invert);
+				if (optarg) chain = optarg;
+				else if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					chain = argv[optind++];
+				break;
 
-		case 'E':
-			add_command(&command, CMD_RENAME_CHAIN, CMD_NONE,
-				    invert);
-			chain = optarg;
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				newname = argv[optind++];
-			else
-				xtables_error(PARAMETER_PROBLEM,
-					   "-%c requires old-chain-name and "
-					   "new-chain-name",
-					    cmd2char(CMD_RENAME_CHAIN));
-			break;
+			case 'E':
+				add_command(&command, CMD_RENAME_CHAIN, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					newname = argv[optind++];
+				else
+					xtables_error(PARAMETER_PROBLEM,
+							"-%c requires old-chain-name and "
+							"new-chain-name",
+							cmd2char(CMD_RENAME_CHAIN));
+				break;
 
-		case 'P':
-			add_command(&command, CMD_SET_POLICY, CMD_NONE,
-				    invert);
-			chain = optarg;
-			if (optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				policy = argv[optind++];
-			else
-				xtables_error(PARAMETER_PROBLEM,
-					   "-%c requires a chain and a policy",
-					   cmd2char(CMD_SET_POLICY));
-			break;
+			case 'P':
+				add_command(&command, CMD_SET_POLICY, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					policy = argv[optind++];
+				else
+					xtables_error(PARAMETER_PROBLEM,
+							"-%c requires a chain and a policy",
+							cmd2char(CMD_SET_POLICY));
+				break;
 
-		case 'h':
-			if (!optarg)
-				optarg = argv[optind];
+			case 'h':
+				if (!optarg)
+					optarg = argv[optind];
 
-			/* iptables -p icmp -h */
-			if (!matches && protocol)
-				xtables_find_match(protocol,
-					XTF_TRY_LOAD, &matches);
+				/* iptables -p icmp -h */
+				if (!matches && protocol)
+					xtables_find_match(protocol,
+							XTF_TRY_LOAD, &matches);
 
-			exit_printhelp(matches);
+				exit_printhelp(matches);
 
-			/*
-			 * Option selection
-			 */
-		case 'p':
-			xtables_check_inverse(optarg, &invert, &optind, argc);
-			set_option(&options, OPT_PROTOCOL, &fw.ip.invflags,
-				   invert);
+				/*
+				 * Option selection
+				 */
+			case 'p':
+				xtables_check_inverse(optarg, &invert, &optind, argc);
+				set_option(&options, OPT_PROTOCOL, &fw.ip.invflags,
+						invert);
 
-			/* Canonicalize into lower case */
-			for (protocol = argv[optind-1]; *protocol; protocol++)
-				*protocol = tolower(*protocol);
+				/* Canonicalize into lower case */
+				for (protocol = argv[optind-1]; *protocol; protocol++)
+					*protocol = tolower(*protocol);
 
-			protocol = argv[optind-1];
-			fw.ip.proto = xtables_parse_protocol(protocol);
+				protocol = argv[optind-1];
+				fw.ip.proto = xtables_parse_protocol(protocol);
 
-			if (fw.ip.proto == 0
-			    && (fw.ip.invflags & IPT_INV_PROTO))
-				xtables_error(PARAMETER_PROBLEM,
-					   "rule would never match protocol");
-			break;
+				if (fw.ip.proto == 0
+						&& (fw.ip.invflags & IPT_INV_PROTO))
+					xtables_error(PARAMETER_PROBLEM,
+							"rule would never match protocol");
+				break;
 
-		case 's':
-			xtables_check_inverse(optarg, &invert, &optind, argc);
-			set_option(&options, OPT_SOURCE, &fw.ip.invflags,
-				   invert);
-			shostnetworkmask = argv[optind-1];
-			break;
+			case 's':
+				xtables_check_inverse(optarg, &invert, &optind, argc);
+				set_option(&options, OPT_SOURCE, &fw.ip.invflags,
+						invert);
+				shostnetworkmask = argv[optind-1];
+				break;
 
-		case 'd':
-			xtables_check_inverse(optarg, &invert, &optind, argc);
-			set_option(&options, OPT_DESTINATION, &fw.ip.invflags,
-				   invert);
-			dhostnetworkmask = argv[optind-1];
-			break;
+			case 'd':
+				xtables_check_inverse(optarg, &invert, &optind, argc);
+				set_option(&options, OPT_DESTINATION, &fw.ip.invflags,
+						invert);
+				dhostnetworkmask = argv[optind-1];
+				break;
 
 #ifdef IPT_F_GOTO
-		case 'g':
-			set_option(&options, OPT_JUMP, &fw.ip.invflags,
-				   invert);
-			fw.ip.flags |= IPT_F_GOTO;
-			jumpto = parse_target(optarg);
-			break;
+			case 'g':
+				set_option(&options, OPT_JUMP, &fw.ip.invflags,
+						invert);
+				fw.ip.flags |= IPT_F_GOTO;
+				jumpto = parse_target(optarg);
+				break;
 #endif
 
-		case 'j':
-			set_option(&options, OPT_JUMP, &fw.ip.invflags,
-				   invert);
-			jumpto = parse_target(optarg);
-			/* TRY_LOAD (may be chain name) */
-			target = xtables_find_target(jumpto, XTF_TRY_LOAD);
+			case 'j':
+				set_option(&options, OPT_JUMP, &fw.ip.invflags,
+						invert);
+				jumpto = parse_target(optarg);
+				/* TRY_LOAD (may be chain name) */
+				target = xtables_find_target(jumpto, XTF_TRY_LOAD);
 
-			if (target) {
-				size_t size;
-
-				size = IPT_ALIGN(sizeof(struct ipt_entry_target))
-					+ target->size;
-
-				target->t = xtables_calloc(1, size);
-				target->t->u.target_size = size;
-				strcpy(target->t->u.user.name, jumpto);
-				xtables_set_revision(target->t->u.user.name,
-					     target->revision);
-				if (target->init != NULL)
-					target->init(target->t);
-				opts = xtables_merge_options(opts,
-						     target->extra_opts,
-						     &target->option_offset);
-				if (opts == NULL)
-					xtables_error(OTHER_PROBLEM,
-						   "can't alloc memory!");
-			}
-			break;
-
-
-		case 'i':
-			xtables_check_inverse(optarg, &invert, &optind, argc);
-			set_option(&options, OPT_VIANAMEIN, &fw.ip.invflags,
-				   invert);
-			xtables_parse_interface(argv[optind-1],
-					fw.ip.iniface,
-					fw.ip.iniface_mask);
-			break;
-
-		case 'o':
-			xtables_check_inverse(optarg, &invert, &optind, argc);
-			set_option(&options, OPT_VIANAMEOUT, &fw.ip.invflags,
-				   invert);
-			xtables_parse_interface(argv[optind-1],
-					fw.ip.outiface,
-					fw.ip.outiface_mask);
-			break;
-
-		case 'f':
-			set_option(&options, OPT_FRAGMENT, &fw.ip.invflags,
-				   invert);
-			fw.ip.flags |= IPT_F_FRAG;
-			break;
-
-		case 'v':
-			if (!verbose)
-				set_option(&options, OPT_VERBOSE,
-					   &fw.ip.invflags, invert);
-			verbose++;
-			break;
-
-		case 'm': {
-			size_t size;
-
-			if (invert)
-				xtables_error(PARAMETER_PROBLEM,
-					   "unexpected ! flag before --match");
-
-			m = xtables_find_match(optarg, XTF_LOAD_MUST_SUCCEED,
-			    &matches);
-			size = IPT_ALIGN(sizeof(struct ipt_entry_match))
-					 + m->size;
-			m->m = xtables_calloc(1, size);
-			m->m->u.match_size = size;
-			strcpy(m->m->u.user.name, m->name);
-			xtables_set_revision(m->m->u.user.name, m->revision);
-			if (m->init != NULL)
-				m->init(m->m);
-			if (m != m->next) {
-				/* Merge options for non-cloned matches */
-				opts = xtables_merge_options(opts,
-						     m->extra_opts,
-						     &m->option_offset);
-				if (opts == NULL)
-					xtables_error(OTHER_PROBLEM,
-						   "can't alloc memory!");
-			}
-		}
-		break;
-
-		case 'n':
-			set_option(&options, OPT_NUMERIC, &fw.ip.invflags,
-				   invert);
-			break;
-
-		case 't':
-			if (invert)
-				xtables_error(PARAMETER_PROBLEM,
-					   "unexpected ! flag before --table");
-			*table = optarg;
-			break;
-
-		case 'x':
-			set_option(&options, OPT_EXPANDED, &fw.ip.invflags,
-				   invert);
-			break;
-
-		case 'V':
-			if (invert)
-				printf("Not %s ;-)\n", prog_vers);
-			else
-				printf("%s v%s\n",
-				       prog_name, prog_vers);
-			exit(0);
-
-		case '0':
-			set_option(&options, OPT_LINENUMBERS, &fw.ip.invflags,
-				   invert);
-			break;
-
-		case 'M':
-			xtables_modprobe_program = optarg;
-			break;
-
-		case 'c':
-
-			set_option(&options, OPT_COUNTERS, &fw.ip.invflags,
-				   invert);
-			pcnt = optarg;
-			bcnt = strchr(pcnt + 1, ',');
-			if (bcnt)
-			    bcnt++;
-			if (!bcnt && optind < argc && argv[optind][0] != '-'
-			    && argv[optind][0] != '!')
-				bcnt = argv[optind++];
-			if (!bcnt)
-				xtables_error(PARAMETER_PROBLEM,
-					"-%c requires packet and byte counter",
-					opt2char(OPT_COUNTERS));
-
-			if (sscanf(pcnt, "%llu", &cnt) != 1)
-				xtables_error(PARAMETER_PROBLEM,
-					"-%c packet counter not numeric",
-					opt2char(OPT_COUNTERS));
-			fw.counters.pcnt = cnt;
-
-			if (sscanf(bcnt, "%llu", &cnt) != 1)
-				xtables_error(PARAMETER_PROBLEM,
-					"-%c byte counter not numeric",
-					opt2char(OPT_COUNTERS));
-			fw.counters.bcnt = cnt;
-			break;
-
-
-		case 1: /* non option */
-			if (optarg[0] == '!' && optarg[1] == '\0') {
-				if (invert)
-					xtables_error(PARAMETER_PROBLEM,
-						   "multiple consecutive ! not"
-						   " allowed");
-				invert = TRUE;
-				optarg[0] = '\0';
-				continue;
-			}
-			fprintf(stderr, "Bad argument `%s'\n", optarg);
-			exit_tryhelp(2);
-
-		default:
-			if (!target
-			    || !(target->parse(c - target->option_offset,
-					       argv, invert,
-					       &target->tflags,
-					       &fw, &target->t))) {
-				for (matchp = matches; matchp; matchp = matchp->next) {
-					if (matchp->completed)
-						continue;
-					if (matchp->match->parse(c - matchp->match->option_offset,
-						     argv, invert,
-						     &matchp->match->mflags,
-						     &fw,
-						     &matchp->match->m))
-						break;
-				}
-				m = matchp ? matchp->match : NULL;
-
-				/* If you listen carefully, you can
-				   actually hear this code suck. */
-
-				/* some explanations (after four different bugs
-				 * in 3 different releases): If we encounter a
-				 * parameter, that has not been parsed yet,
-				 * it's not an option of an explicitly loaded
-				 * match or a target.  However, we support
-				 * implicit loading of the protocol match
-				 * extension.  '-p tcp' means 'l4 proto 6' and
-				 * at the same time 'load tcp protocol match on
-				 * demand if we specify --dport'.
-				 *
-				 * To make this work, we need to make sure:
-				 * - the parameter has not been parsed by
-				 *   a match (m above)
-				 * - a protocol has been specified
-				 * - the protocol extension has not been
-				 *   loaded yet, or is loaded and unused
-				 *   [think of iptables-restore!]
-				 * - the protocol extension can be successively
-				 *   loaded
-				 */
-				if (m == NULL
-				    && protocol
-				    && (!find_proto(protocol, XTF_DONT_LOAD,
-						   options&OPT_NUMERIC, NULL)
-					|| (find_proto(protocol, XTF_DONT_LOAD,
-							options&OPT_NUMERIC, NULL)
-					    && (proto_used == 0))
-				       )
-				    && (m = find_proto(protocol, XTF_TRY_LOAD,
-						       options&OPT_NUMERIC, &matches))) {
-					/* Try loading protocol */
+				if (target) {
 					size_t size;
 
-					proto_used = 1;
+					size = IPT_ALIGN(sizeof(struct ipt_entry_target))
+						+ target->size;
 
-					size = IPT_ALIGN(sizeof(struct ipt_entry_match))
-							 + m->size;
-
-					m->m = xtables_calloc(1, size);
-					m->m->u.match_size = size;
-					strcpy(m->m->u.user.name, m->name);
-					xtables_set_revision(m->m->u.user.name,
-						     m->revision);
-					if (m->init != NULL)
-						m->init(m->m);
-
+					target->t = xtables_calloc(1, size);
+					target->t->u.target_size = size;
+					strcpy(target->t->u.user.name, jumpto);
+					xtables_set_revision(target->t->u.user.name,
+							target->revision);
+					if (target->init != NULL)
+						target->init(target->t);
 					opts = xtables_merge_options(opts,
-							     m->extra_opts,
-							     &m->option_offset);
+							target->extra_opts,
+							&target->option_offset);
 					if (opts == NULL)
 						xtables_error(OTHER_PROBLEM,
-							"can't alloc memory!");
+								"can't alloc memory!");
+				}
+				break;
 
-					optind--;
-					continue;
-				}
-				if (!m) {
-					if (c == '?') {
-						if (optopt) {
-							xtables_error(
-							   PARAMETER_PROBLEM,
-							   "option `%s' "
-							   "requires an "
-							   "argument",
-							   argv[optind-1]);
-						} else {
-							xtables_error(
-							   PARAMETER_PROBLEM,
-							   "unknown option "
-							   "`%s'",
-							   argv[optind-1]);
-						}
-					}
-					xtables_error(PARAMETER_PROBLEM,
-						   "Unknown arg `%s'", optarg);
-				}
-			}
+
+			case 'i':
+				xtables_check_inverse(optarg, &invert, &optind, argc);
+				set_option(&options, OPT_VIANAMEIN, &fw.ip.invflags,
+						invert);
+				xtables_parse_interface(argv[optind-1],
+						fw.ip.iniface,
+						fw.ip.iniface_mask);
+				break;
+
+			case 'o':
+				xtables_check_inverse(optarg, &invert, &optind, argc);
+				set_option(&options, OPT_VIANAMEOUT, &fw.ip.invflags,
+						invert);
+				xtables_parse_interface(argv[optind-1],
+						fw.ip.outiface,
+						fw.ip.outiface_mask);
+				break;
+
+			case 'f':
+				set_option(&options, OPT_FRAGMENT, &fw.ip.invflags,
+						invert);
+				fw.ip.flags |= IPT_F_FRAG;
+				break;
+
+			case 'v':
+				if (!verbose)
+					set_option(&options, OPT_VERBOSE,
+							&fw.ip.invflags, invert);
+				verbose++;
+				break;
+
+			case 'm': {
+					  size_t size;
+
+					  if (invert)
+						  xtables_error(PARAMETER_PROBLEM,
+								  "unexpected ! flag before --match");
+
+					  m = xtables_find_match(optarg, XTF_LOAD_MUST_SUCCEED,
+							  &matches);
+					  size = IPT_ALIGN(sizeof(struct ipt_entry_match))
+						  + m->size;
+					  m->m = xtables_calloc(1, size);
+					  m->m->u.match_size = size;
+					  strcpy(m->m->u.user.name, m->name);
+					  xtables_set_revision(m->m->u.user.name, m->revision);
+					  if (m->init != NULL)
+						  m->init(m->m);
+					  if (m != m->next) {
+						  /* Merge options for non-cloned matches */
+						  opts = xtables_merge_options(opts,
+								  m->extra_opts,
+								  &m->option_offset);
+						  if (opts == NULL)
+							  xtables_error(OTHER_PROBLEM,
+									  "can't alloc memory!");
+					  }
+				  }
+				  break;
+
+			case 'n':
+				  set_option(&options, OPT_NUMERIC, &fw.ip.invflags,
+						  invert);
+				  break;
+
+			case 't':
+				  if (invert)
+					  xtables_error(PARAMETER_PROBLEM,
+							  "unexpected ! flag before --table");
+				  *table = optarg;
+				  break;
+
+			case 'x':
+				  set_option(&options, OPT_EXPANDED, &fw.ip.invflags,
+						  invert);
+				  break;
+
+			case 'V':
+				  if (invert)
+					  printf("Not %s ;-)\n", prog_vers);
+				  else
+					  printf("%s v%s\n",
+							  prog_name, prog_vers);
+				  exit(0);
+
+			case '0':
+				  set_option(&options, OPT_LINENUMBERS, &fw.ip.invflags,
+						  invert);
+				  break;
+
+			case 'M':
+				  xtables_modprobe_program = optarg;
+				  break;
+
+			case 'c':
+
+				  set_option(&options, OPT_COUNTERS, &fw.ip.invflags,
+						  invert);
+				  pcnt = optarg;
+				  bcnt = strchr(pcnt + 1, ',');
+				  if (bcnt)
+					  bcnt++;
+				  if (!bcnt && optind < argc && argv[optind][0] != '-'
+						  && argv[optind][0] != '!')
+					  bcnt = argv[optind++];
+				  if (!bcnt)
+					  xtables_error(PARAMETER_PROBLEM,
+							  "-%c requires packet and byte counter",
+							  opt2char(OPT_COUNTERS));
+
+				  if (sscanf(pcnt, "%llu", &cnt) != 1)
+					  xtables_error(PARAMETER_PROBLEM,
+							  "-%c packet counter not numeric",
+							  opt2char(OPT_COUNTERS));
+				  fw.counters.pcnt = cnt;
+
+				  if (sscanf(bcnt, "%llu", &cnt) != 1)
+					  xtables_error(PARAMETER_PROBLEM,
+							  "-%c byte counter not numeric",
+							  opt2char(OPT_COUNTERS));
+				  fw.counters.bcnt = cnt;
+				  break;
+
+
+			case 1: /* non option */
+				  if (optarg[0] == '!' && optarg[1] == '\0') {
+					  if (invert)
+						  xtables_error(PARAMETER_PROBLEM,
+								  "multiple consecutive ! not"
+								  " allowed");
+					  invert = TRUE;
+					  optarg[0] = '\0';
+					  continue;
+				  }
+				  fprintf(stderr, "Bad argument `%s'\n", optarg);
+				  exit_tryhelp(2);
+
+			default:
+				  if (!target
+						  || !(target->parse(c - target->option_offset,
+								  argv, invert,
+								  &target->tflags,
+								  &fw, &target->t))) {
+					  for (matchp = matches; matchp; matchp = matchp->next) {
+						  if (matchp->completed)
+							  continue;
+						  if (matchp->match->parse(c - matchp->match->option_offset,
+									  argv, invert,
+									  &matchp->match->mflags,
+									  &fw,
+									  &matchp->match->m))
+							  break;
+					  }
+					  m = matchp ? matchp->match : NULL;
+
+					  /* If you listen carefully, you can
+					     actually hear this code suck. */
+
+					  /* some explanations (after four different bugs
+					   * in 3 different releases): If we encounter a
+					   * parameter, that has not been parsed yet,
+					   * it's not an option of an explicitly loaded
+					   * match or a target.  However, we support
+					   * implicit loading of the protocol match
+					   * extension.  '-p tcp' means 'l4 proto 6' and
+					   * at the same time 'load tcp protocol match on
+					   * demand if we specify --dport'.
+					   *
+					   * To make this work, we need to make sure:
+					   * - the parameter has not been parsed by
+					   *   a match (m above)
+					   * - a protocol has been specified
+					   * - the protocol extension has not been
+					   *   loaded yet, or is loaded and unused
+					   *   [think of iptables-restore!]
+					   * - the protocol extension can be successively
+					   *   loaded
+					   */
+					  if (m == NULL
+							  && protocol
+							  && (!find_proto(protocol, XTF_DONT_LOAD,
+									  options&OPT_NUMERIC, NULL)
+								  || (find_proto(protocol, XTF_DONT_LOAD,
+										  options&OPT_NUMERIC, NULL)
+									  && (proto_used == 0))
+							     )
+							  && (m = find_proto(protocol, XTF_TRY_LOAD,
+									  options&OPT_NUMERIC, &matches))) {
+						  /* Try loading protocol */
+						  size_t size;
+
+						  proto_used = 1;
+
+						  size = IPT_ALIGN(sizeof(struct ipt_entry_match))
+							  + m->size;
+
+						  m->m = xtables_calloc(1, size);
+						  m->m->u.match_size = size;
+						  strcpy(m->m->u.user.name, m->name);
+						  xtables_set_revision(m->m->u.user.name,
+								  m->revision);
+						  if (m->init != NULL)
+							  m->init(m->m);
+
+						  opts = xtables_merge_options(opts,
+								  m->extra_opts,
+								  &m->option_offset);
+						  if (opts == NULL)
+							  xtables_error(OTHER_PROBLEM,
+									  "can't alloc memory!");
+
+						  optind--;
+						  continue;
+					  }
+					  if (!m) {
+						  if (c == '?') {
+							  if (optopt) {
+								  xtables_error(
+										  PARAMETER_PROBLEM,
+										  "option `%s' "
+										  "requires an "
+										  "argument",
+										  argv[optind-1]);
+							  } else {
+								  xtables_error(
+										  PARAMETER_PROBLEM,
+										  "unknown option "
+										  "`%s'",
+										  argv[optind-1]);
+							  }
+						  }
+						  xtables_error(PARAMETER_PROBLEM,
+								  "Unknown arg `%s'", optarg);
+					  }
+				  }
 		}
 		invert = FALSE;
 	}
 
 	if (strcmp(*table, "nat") == 0 &&
-	    ((policy != NULL && strcmp(policy, "DROP") == 0) ||
-	    (jumpto != NULL && strcmp(jumpto, "DROP") == 0)))
+			((policy != NULL && strcmp(policy, "DROP") == 0) ||
+			 (jumpto != NULL && strcmp(jumpto, "DROP") == 0)))
 		xtables_error(PARAMETER_PROBLEM,
-			"\nThe \"nat\" table is not intended for filtering, "
-		        "the use of DROP is therefore inhibited.\n\n");
+				"\nThe \"nat\" table is not intended for filtering, "
+				"the use of DROP is therefore inhibited.\n\n");
 
 	for (matchp = matches; matchp; matchp = matchp->next)
 		if (matchp->match->final_check != NULL)
@@ -1869,12 +1869,12 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 
 	if (optind < argc)
 		xtables_error(PARAMETER_PROBLEM,
-			   "unknown arguments found on commandline");
+				"unknown arguments found on commandline");
 	if (!command)
 		xtables_error(PARAMETER_PROBLEM, "no command specified");
 	if (invert)
 		xtables_error(PARAMETER_PROBLEM,
-			   "nothing appropriate following !");
+				"nothing appropriate following !");
 
 	if (command & (CMD_REPLACE | CMD_INSERT | CMD_DELETE | CMD_APPEND)) {
 		if (!(options & OPT_DESTINATION))
@@ -1885,27 +1885,27 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 
 	if (shostnetworkmask)
 		xtables_ipparse_any(shostnetworkmask, &saddrs,
-					&fw.ip.smsk, &nsaddrs);
+				&fw.ip.smsk, &nsaddrs);
 
 	if (dhostnetworkmask)
 		xtables_ipparse_any(dhostnetworkmask, &daddrs,
-					&fw.ip.dmsk, &ndaddrs);
+				&fw.ip.dmsk, &ndaddrs);
 
 	if ((nsaddrs > 1 || ndaddrs > 1) &&
-	    (fw.ip.invflags & (IPT_INV_SRCIP | IPT_INV_DSTIP)))
+			(fw.ip.invflags & (IPT_INV_SRCIP | IPT_INV_DSTIP)))
 		xtables_error(PARAMETER_PROBLEM, "! not allowed with multiple"
-			   " source or destination IP addresses");
+				" source or destination IP addresses");
 
 	if (command == CMD_REPLACE && (nsaddrs != 1 || ndaddrs != 1))
 		xtables_error(PARAMETER_PROBLEM, "Replacement rule does not "
-			   "specify a unique address");
+				"specify a unique address");
 
 	generic_opt_check(command, options);
 
 	if (chain && strlen(chain) > IPT_FUNCTION_MAXNAMELEN)
 		xtables_error(PARAMETER_PROBLEM,
-			   "chain name `%s' too long (must be under %i chars)",
-			   chain, IPT_FUNCTION_MAXNAMELEN);
+				"chain name `%s' too long (must be under %i chars)",
+				chain, IPT_FUNCTION_MAXNAMELEN);
 
 	/* only allocate handle if we weren't called with a handle */
 	if (!*handle)
@@ -1917,37 +1917,37 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 
 	if (!*handle)
 		xtables_error(VERSION_PROBLEM,
-			   "can't initialize iptables table `%s': %s",
-			   *table, iptc_strerror(errno));
+				"can't initialize iptables table `%s': %s",
+				*table, iptc_strerror(errno));
 
 	if (command == CMD_APPEND
-	    || command == CMD_DELETE
-	    || command == CMD_INSERT
-	    || command == CMD_REPLACE) {
+			|| command == CMD_DELETE
+			|| command == CMD_INSERT
+			|| command == CMD_REPLACE) {
 		if (strcmp(chain, "PREROUTING") == 0
-		    || strcmp(chain, "INPUT") == 0) {
+				|| strcmp(chain, "INPUT") == 0) {
 			/* -o not valid with incoming packets. */
 			if (options & OPT_VIANAMEOUT)
 				xtables_error(PARAMETER_PROBLEM,
-					   "Can't use -%c with %s\n",
-					   opt2char(OPT_VIANAMEOUT),
-					   chain);
+						"Can't use -%c with %s\n",
+						opt2char(OPT_VIANAMEOUT),
+						chain);
 		}
 
 		if (strcmp(chain, "POSTROUTING") == 0
-		    || strcmp(chain, "OUTPUT") == 0) {
+				|| strcmp(chain, "OUTPUT") == 0) {
 			/* -i not valid with outgoing packets */
 			if (options & OPT_VIANAMEIN)
 				xtables_error(PARAMETER_PROBLEM,
-					   "Can't use -%c with %s\n",
-					   opt2char(OPT_VIANAMEIN),
-					   chain);
+						"Can't use -%c with %s\n",
+						opt2char(OPT_VIANAMEIN),
+						chain);
 		}
 
 		if (target && iptc_is_chain(jumpto, *handle)) {
 			fprintf(stderr,
-				"Warning: using chain %s, not extension\n",
-				jumpto);
+					"Warning: using chain %s, not extension\n",
+					jumpto);
 
 			if (target->t)
 				free(target->t);
@@ -1958,12 +1958,12 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 		/* If they didn't specify a target, or it's a chain
 		   name, use standard. */
 		if (!target
-		    && (strlen(jumpto) == 0
-			|| iptc_is_chain(jumpto, *handle))) {
+				&& (strlen(jumpto) == 0
+					|| iptc_is_chain(jumpto, *handle))) {
 			size_t size;
 
 			target = xtables_find_target(IPT_STANDARD_TARGET,
-					 XTF_LOAD_MUST_SUCCEED);
+					XTF_LOAD_MUST_SUCCEED);
 
 			size = sizeof(struct ipt_entry_target)
 				+ target->size;
@@ -1972,7 +1972,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 			strcpy(target->t->u.user.name, jumpto);
 			if (!iptc_is_chain(jumpto, *handle))
 				xtables_set_revision(target->t->u.user.name,
-					     target->revision);
+						target->revision);
 			if (target->init != NULL)
 				target->init(target->t);
 		}
@@ -1985,7 +1985,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 #ifdef IPT_F_GOTO
 			if (fw.ip.flags & IPT_F_GOTO)
 				xtables_error(PARAMETER_PROBLEM,
-					   "goto '%s' is not a chain\n", jumpto);
+						"goto '%s' is not a chain\n", jumpto);
 #endif
 			xtables_find_target(jumpto, XTF_LOAD_MUST_SUCCEED);
 		} else {
@@ -1995,83 +1995,83 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 	}
 
 	switch (command) {
-	case CMD_APPEND:
-		ret = append_entry(chain, e,
-				   nsaddrs, saddrs, ndaddrs, daddrs,
-				   options&OPT_VERBOSE,
-				   *handle);
-		break;
-	case CMD_DELETE:
-		ret = delete_entry(chain, e,
-				   nsaddrs, saddrs, ndaddrs, daddrs,
-				   options&OPT_VERBOSE,
-				   *handle, matches);
-		break;
-	case CMD_DELETE_NUM:
-		ret = iptc_delete_num_entry(chain, rulenum - 1, *handle);
-		break;
-	case CMD_REPLACE:
-		ret = replace_entry(chain, e, rulenum - 1,
-				    saddrs, daddrs, options&OPT_VERBOSE,
-				    *handle);
-		break;
-	case CMD_INSERT:
-		ret = insert_entry(chain, e, rulenum - 1,
-				   nsaddrs, saddrs, ndaddrs, daddrs,
-				   options&OPT_VERBOSE,
-				   *handle);
-		break;
-	case CMD_UPDATE:
-		ret = update_entry(chain, e, rulenum - 1,
-				nsaddrs, saddrs, ndaddrs, daddrs,
-				options&OPT_VERBOSE,
-				*handle);
-		break;
+		case CMD_APPEND:
+			ret = append_entry(chain, e,
+					nsaddrs, saddrs, ndaddrs, daddrs,
+					options&OPT_VERBOSE,
+					*handle);
+			break;
+		case CMD_DELETE:
+			ret = delete_entry(chain, e,
+					nsaddrs, saddrs, ndaddrs, daddrs,
+					options&OPT_VERBOSE,
+					*handle, matches);
+			break;
+		case CMD_DELETE_NUM:
+			ret = iptc_delete_num_entry(chain, rulenum - 1, *handle);
+			break;
+		case CMD_REPLACE:
+			ret = replace_entry(chain, e, rulenum - 1,
+					saddrs, daddrs, options&OPT_VERBOSE,
+					*handle);
+			break;
+		case CMD_INSERT:
+			ret = insert_entry(chain, e, rulenum - 1,
+					nsaddrs, saddrs, ndaddrs, daddrs,
+					options&OPT_VERBOSE,
+					*handle);
+			break;
+		case CMD_UPDATE:
+			ret = update_entry(chain, e, rulenum - 1,
+					nsaddrs, saddrs, ndaddrs, daddrs,
+					options&OPT_VERBOSE,
+					*handle);
+			break;
 
-	case CMD_FLUSH:
-		ret = flush_entries(chain, options&OPT_VERBOSE, *handle);
-		break;
-	case CMD_ZERO:
-		ret = zero_entries(chain, options&OPT_VERBOSE, *handle);
-		break;
-	case CMD_LIST:
-	case CMD_LIST|CMD_ZERO:
-		ret = list_entries(chain,
-				rulenum,
-				options&OPT_VERBOSE,
-				options&OPT_NUMERIC,
-				options&OPT_EXPANDED,
-				options&OPT_LINENUMBERS,
-				*handle);
-		if (ret && (command & CMD_ZERO))
-			ret = zero_entries(chain,
-					options&OPT_VERBOSE, *handle);
-		break;
-	case CMD_LIST_RULES:
-	case CMD_LIST_RULES|CMD_ZERO:
-		ret = list_rules(chain,
-				rulenum,
-				options&OPT_VERBOSE,
-				*handle);
-		if (ret && (command & CMD_ZERO))
-			ret = zero_entries(chain,
-					options&OPT_VERBOSE, *handle);
-		break;
-	case CMD_NEW_CHAIN:
-		ret = iptc_create_chain(chain, *handle);
-		break;
-	case CMD_DELETE_CHAIN:
-		ret = delete_chain(chain, options&OPT_VERBOSE, *handle);
-		break;
-	case CMD_RENAME_CHAIN:
-		ret = iptc_rename_chain(chain, newname,	*handle);
-		break;
-	case CMD_SET_POLICY:
-		ret = iptc_set_policy(chain, policy, options&OPT_COUNTERS ? &fw.counters : NULL, *handle);
-		break;
-	default:
-		/* We should never reach this... */
-		exit_tryhelp(2);
+		case CMD_FLUSH:
+			ret = flush_entries(chain, options&OPT_VERBOSE, *handle);
+			break;
+		case CMD_ZERO:
+			ret = zero_entries(chain, options&OPT_VERBOSE, *handle);
+			break;
+		case CMD_LIST:
+		case CMD_LIST|CMD_ZERO:
+			ret = list_entries(chain,
+					rulenum,
+					options&OPT_VERBOSE,
+					options&OPT_NUMERIC,
+					options&OPT_EXPANDED,
+					options&OPT_LINENUMBERS,
+					*handle);
+			if (ret && (command & CMD_ZERO))
+				ret = zero_entries(chain,
+						options&OPT_VERBOSE, *handle);
+			break;
+		case CMD_LIST_RULES:
+		case CMD_LIST_RULES|CMD_ZERO:
+			ret = list_rules(chain,
+					rulenum,
+					options&OPT_VERBOSE,
+					*handle);
+			if (ret && (command & CMD_ZERO))
+				ret = zero_entries(chain,
+						options&OPT_VERBOSE, *handle);
+			break;
+		case CMD_NEW_CHAIN:
+			ret = iptc_create_chain(chain, *handle);
+			break;
+		case CMD_DELETE_CHAIN:
+			ret = delete_chain(chain, options&OPT_VERBOSE, *handle);
+			break;
+		case CMD_RENAME_CHAIN:
+			ret = iptc_rename_chain(chain, newname,	*handle);
+			break;
+		case CMD_SET_POLICY:
+			ret = iptc_set_policy(chain, policy, options&OPT_COUNTERS ? &fw.counters : NULL, *handle);
+			break;
+		default:
+			/* We should never reach this... */
+			exit_tryhelp(2);
 	}
 
 	if (verbose > 1)
