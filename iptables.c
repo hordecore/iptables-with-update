@@ -77,9 +77,10 @@
 #define CMD_SET_POLICY		0x0400U
 #define CMD_RENAME_CHAIN	0x0800U
 #define CMD_LIST_RULES		0x1000U
-#define NUMBER_OF_CMD	14
-static const char cmdflags[] = { 'I', 'D', 'D', 'R', 'A', 'L', 'F', 'Z',
-				 'N', 'X', 'P', 'E', 'S' };
+#define CMD_UPDATE		0x2000U
+#define NUMBER_OF_CMD	15
+static const char cmdflags[NUMBER_OF_CMD] = { 'I', 'D', 'D', 'R', 'A', 'L', 'F', 'Z',
+				 'N', 'X', 'P', 'E', 'S', 'U' };
 
 #define OPT_NONE	0x00000U
 #define OPT_NUMERIC	0x00001U
@@ -102,7 +103,6 @@ static struct option original_opts[] = {
 	{.name = "append",        .has_arg = 1, .val = 'A'},
 	{.name = "delete",        .has_arg = 1, .val = 'D'},
 	{.name = "insert",        .has_arg = 1, .val = 'I'},
-	{.name = "update",        .has_arg = 1, .val = 'U'},
 	{.name = "replace",       .has_arg = 1, .val = 'R'},
 	{.name = "list",          .has_arg = 2, .val = 'L'},
 	{.name = "list-rules",    .has_arg = 2, .val = 'S'},
@@ -132,6 +132,7 @@ static struct option original_opts[] = {
 	{.name = "modprobe",      .has_arg = 1, .val = 'M'},
 	{.name = "set-counters",  .has_arg = 1, .val = 'c'},
 	{.name = "goto",          .has_arg = 1, .val = 'g'},
+	{.name = "update",        .has_arg = 1, .val = 'U'},
 	{NULL},
 };
 
@@ -165,7 +166,6 @@ static char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =
 {
 	/*     -n  -s  -d  -p  -j  -v  -x  -i  -o  -f --line -c */
 /*INSERT*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
-/*UPDATE*/ //   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
 /*DELETE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x','x'},
 /*DELETE_NUM*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
 /*REPLACE*/   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
@@ -177,7 +177,8 @@ static char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =
 /*DEL_CHAIN*/ {'x','x','x','x','x',' ','x','x','x','x','x','x'},
 /*SET_POLICY*/{'x','x','x','x','x',' ','x','x','x','x','x',' '},
 /*RENAME*/    {'x','x','x','x','x',' ','x','x','x','x','x','x'},
-/*LIST_RULES*/{'x','x','x','x','x',' ','x','x','x','x','x','x'}
+/*LIST_RULES*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
+/*UPDATE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '} 
 };
 
 static int inverse_for_options[NUMBER_OF_OPT] =
@@ -376,7 +377,6 @@ generic_opt_check(int command, int options)
 		for (j = 0; j < NUMBER_OF_CMD; j++) {
 			if (!(command & (1<<j)))
 				continue;
-
 			if (!(options & (1<<i))) {
 				if (commands_v_options[j][i] == '+')
 					xtables_error(PARAMETER_PROBLEM,
@@ -384,12 +384,15 @@ generic_opt_check(int command, int options)
 						   "option for this command\n",
 						   optflags[i]);
 			} else {
-				if (commands_v_options[j][i] != 'x')
+				if (commands_v_options[j][i] != 'x') {
 					legal = 1;
-				else if (legal == 0)
+				}
+				else if (legal == 0) {
 					legal = -1;
+				}
 			}
 		}
+
 		if (legal == -1)
 			xtables_error(PARAMETER_PROBLEM,
 				   "Illegal option `-%c' with this command\n",
@@ -811,6 +814,34 @@ insert_entry(const ipt_chainlabel chain,
 
 	return ret;
 }
+
+static int
+update_entry(const ipt_chainlabel chain,
+	     struct ipt_entry *fw,
+	     unsigned int rulenum,
+	     unsigned int nsaddrs,
+	     const struct in_addr saddrs[],
+	     unsigned int ndaddrs,
+	     const struct in_addr daddrs[],
+	     int verbose,
+	     struct iptc_handle *handle)
+{
+	unsigned int i, j;
+	int ret = 1;
+
+	for (i = 0; i < nsaddrs; i++) {
+		fw->ip.src.s_addr = saddrs[i].s_addr;
+		for (j = 0; j < ndaddrs; j++) {
+			fw->ip.dst.s_addr = daddrs[j].s_addr;
+			if (verbose)
+				print_firewall_line(fw, handle);
+			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
+		}
+	}
+
+	return ret;
+}
+
 
 static unsigned char *
 make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
@@ -1358,7 +1389,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 	opterr = 0;
 
 	while ((c = getopt_long(argc, argv,
-	   "-A:D:R:I:L::S::M:F::Z::N:X::E:P:Vh::o:p:s:d:j:i:fbvnt:m:xc:g:",
+	   "-A:D:R:U:I:L::S::M:F::Z::N:X::E:P:Vh::o:p:s:d:j:i:fbvnt:m:xc:g:",
 					   opts, NULL)) != -1) {
 		switch (c) {
 			/*
@@ -1990,6 +2021,13 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 				   options&OPT_VERBOSE,
 				   *handle);
 		break;
+	case CMD_UPDATE:
+		ret = update_entry(chain, e, rulenum - 1,
+				nsaddrs, saddrs, ndaddrs, daddrs,
+				options&OPT_VERBOSE,
+				*handle);
+		break;
+
 	case CMD_FLUSH:
 		ret = flush_entries(chain, options&OPT_VERBOSE, *handle);
 		break;
@@ -1999,25 +2037,25 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 	case CMD_LIST:
 	case CMD_LIST|CMD_ZERO:
 		ret = list_entries(chain,
-				   rulenum,
-				   options&OPT_VERBOSE,
-				   options&OPT_NUMERIC,
-				   options&OPT_EXPANDED,
-				   options&OPT_LINENUMBERS,
-				   *handle);
+				rulenum,
+				options&OPT_VERBOSE,
+				options&OPT_NUMERIC,
+				options&OPT_EXPANDED,
+				options&OPT_LINENUMBERS,
+				*handle);
 		if (ret && (command & CMD_ZERO))
 			ret = zero_entries(chain,
-					   options&OPT_VERBOSE, *handle);
+					options&OPT_VERBOSE, *handle);
 		break;
 	case CMD_LIST_RULES:
 	case CMD_LIST_RULES|CMD_ZERO:
 		ret = list_rules(chain,
-				   rulenum,
-				   options&OPT_VERBOSE,
-				   *handle);
+				rulenum,
+				options&OPT_VERBOSE,
+				*handle);
 		if (ret && (command & CMD_ZERO))
 			ret = zero_entries(chain,
-					   options&OPT_VERBOSE, *handle);
+					options&OPT_VERBOSE, *handle);
 		break;
 	case CMD_NEW_CHAIN:
 		ret = iptc_create_chain(chain, *handle);
