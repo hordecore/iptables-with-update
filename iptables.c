@@ -801,16 +801,12 @@ insert_entry(const ipt_chainlabel chain,
 {
 	unsigned int i, j;
 	int ret = 1;
-	printf("It's really insert!\n");
-	printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n", rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 	for (i = 0; i < nsaddrs; i++) {
-		printf("for i %d\n", i);
 		fw->ip.src.s_addr = saddrs[i].s_addr;
 		for (j = 0; j < ndaddrs; j++) {
-			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
-			//if (verbose)
-			print_firewall_line(fw, handle);
+			if (verbose)
+				print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
 	}
@@ -831,17 +827,13 @@ update_entry(const ipt_chainlabel chain,
 {
 	unsigned int i, j;
 	int ret = 1;
-	printf("It's really update!\n");
-	printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n", rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 
 	for (i = 0; i < nsaddrs; i++) {
-		printf("for i %d\n", i);
 		fw->ip.src.s_addr = saddrs[i].s_addr;
 		for (j = 0; j < ndaddrs; j++) {
-			printf("for j %d\n", j);
 			fw->ip.dst.s_addr = daddrs[j].s_addr;
-			// if (verbose)
-			print_firewall_line(fw, handle);
+			if (verbose)
+				print_firewall_line(fw, handle);
 			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
 		}
 	}
@@ -2013,8 +2005,6 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 		}
 	}
 
-	printf("SOI: Command %d\n", command);
-	printf("Params: nsaddrs %u, ndaddrs %u\n", nsaddrs, ndaddrs);
 	switch (command) {
 		case CMD_APPEND:
 			ret = append_entry(chain, e,
