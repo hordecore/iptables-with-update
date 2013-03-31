@@ -1,0 +1,20 @@
+Index: iptables-1.4.3.2-2ubuntu1/Makefile.am
+===================================================================
+--- iptables-1.4.3.2-2ubuntu1.orig/Makefile.am	2009-05-06 02:05:21.000000000 -0500
++++ iptables-1.4.3.2-2ubuntu1/Makefile.am	2009-05-06 02:06:18.000000000 -0500
+@@ -4,7 +4,7 @@
+ AUTOMAKE_OPTIONS = foreign subdir-objects
+ 
+ AM_CFLAGS        = ${regular_CFLAGS} -I${top_builddir}/include -I${top_srcdir}/include ${kinclude_CFLAGS}
+-SUBDIRS          = extensions
++SUBDIRS          = extensions howtos
+ if ENABLE_DEVEL
+ SUBDIRS         += include
+ endif
+@@ -123,3 +123,6 @@
+ # Using if..fi avoids an ugly "error (ignored)" message :)
+ install-exec-hook:
+ 	-if test -z "${DESTDIR}"; then /sbin/ldconfig; fi;
++
++test check:
++	echo "Are we on the air? Hello, Mom!"

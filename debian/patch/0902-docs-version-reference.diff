@@ -1,0 +1,22 @@
+Index: iptables-1.4.1.1/debian/iptables.doc-base.nat
+===================================================================
+--- iptables-1.4.1.1.orig/debian/iptables.doc-base.nat	2008-11-14 17:19:59.926553140 +0100
++++ iptables-1.4.1.1/debian/iptables.doc-base.nat	2008-11-14 17:20:21.648947677 +0100
+@@ -1,5 +1,5 @@
+ Document: nat
+-Title: Linux 2.4 NAT HOWTO
++Title: Linux 2.4/2.6 NAT HOWTO
+ Author: Rusty Russell
+ Abstract: This document describes how to do masquerading, transparent 
+  proxying, port forwarding, and other forms of Network Address 
+Index: iptables-1.4.1.1/debian/iptables.doc-base.packet-filter
+===================================================================
+--- iptables-1.4.1.1.orig/debian/iptables.doc-base.packet-filter	2008-11-14 17:19:59.990553103 +0100
++++ iptables-1.4.1.1/debian/iptables.doc-base.packet-filter	2008-11-14 17:20:29.717551157 +0100
+@@ -1,5 +1,5 @@
+ Document: packet-filter
+-Title: Linux 2.4 Packet Filtering HOWTO
++Title: Linux 2.4/2.6 Packet Filtering HOWTO
+ Author: Rusty Russell
+ Abstract: This document describes how to use iptables to filter 
+  IP packets for the 2.4+ Linux kernels.
