@@ -814,33 +814,6 @@ insert_entry(const ipt_chainlabel chain,
 	return ret;
 }
 
-	static int
-update_entry(const ipt_chainlabel chain,
-		struct ipt_entry *fw,
-		unsigned int rulenum,
-		unsigned int nsaddrs,
-		const struct in_addr saddrs[],
-		unsigned int ndaddrs,
-		const struct in_addr daddrs[],
-		int verbose,
-		struct iptc_handle *handle)
-{
-	unsigned int i, j;
-	int ret = 1;
-
-	for (i = 0; i < nsaddrs; i++) {
-		fw->ip.src.s_addr = saddrs[i].s_addr;
-		for (j = 0; j < ndaddrs; j++) {
-			fw->ip.dst.s_addr = daddrs[j].s_addr;
-			if (verbose)
-				print_firewall_line(fw, handle);
-			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
-		}
-	}
-
-	return ret;
-}
-
 
 	static unsigned char *
 make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
@@ -875,6 +848,39 @@ make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
 	return mask;
 }
 
+/* TODO: Get understand how works make_delete_mask to find simillar rules */ 
+	static int
+update_entry(const ipt_chainlabel chain,
+		struct ipt_entry *fw,
+		unsigned int rulenum,
+		unsigned int nsaddrs,
+		const struct in_addr saddrs[],
+		unsigned int ndaddrs,
+		const struct in_addr daddrs[],
+		int verbose,
+		struct iptc_handle *handle,
+		struct xtables_rule_match *matches)
+{
+	unsigned int i, j;
+	int ret = 1;
+//	unsigned char *mask;
+//	mask = make_delete_mask(fw, matches);
+//	printf("delete mask: %s\n", mask);
+
+	for (i = 0; i < nsaddrs; i++) {
+		fw->ip.src.s_addr = saddrs[i].s_addr;
+		for (j = 0; j < ndaddrs; j++) {
+			fw->ip.dst.s_addr = daddrs[j].s_addr;
+			if (verbose)
+				print_firewall_line(fw, handle);
+			ret &= iptc_insert_entry(chain, fw, rulenum, handle);
+		}
+	}
+
+	return ret;
+}
+
+
 	static int
 delete_entry(const ipt_chainlabel chain,
 		struct ipt_entry *fw,
@@ -891,6 +897,7 @@ delete_entry(const ipt_chainlabel chain,
 	unsigned char *mask;
 
 	mask = make_delete_mask(fw, matches);
+//	printf("delete mask: %s\n", mask);
 	for (i = 0; i < nsaddrs; i++) {
 		fw->ip.src.s_addr = saddrs[i].s_addr;
 		for (j = 0; j < ndaddrs; j++) {
@@ -2036,7 +2043,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 			ret = update_entry(chain, e, rulenum - 1,
 					nsaddrs, saddrs, ndaddrs, daddrs,
 					options&OPT_VERBOSE,
-					*handle);
+					*handle, matches);
 			break;
 
 		case CMD_FLUSH:
