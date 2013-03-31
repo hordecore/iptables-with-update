@@ -1994,6 +1994,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 		}
 	}
 
+	printf("Command %d\n", command);
 	switch (command) {
 		case CMD_APPEND:
 			ret = append_entry(chain, e,
@@ -2022,6 +2023,7 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 					*handle);
 			break;
 		case CMD_UPDATE:
+			printf("Oh, really update!!\n");
 			ret = update_entry(chain, e, rulenum - 1,
 					nsaddrs, saddrs, ndaddrs, daddrs,
 					options&OPT_VERBOSE,
