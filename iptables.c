@@ -2012,7 +2012,8 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 		}
 	}
 
-	printf("Command %d\n", command);
+	printf("SOI: Command %d\n", command);
+	printf("Params: nsaddrs %u, ndaddrs %u\n", nsaddrs, ndaddrs);
 	switch (command) {
 		case CMD_APPEND:
 			ret = append_entry(chain, e,
