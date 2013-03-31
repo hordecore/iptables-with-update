@@ -51,3 +51,4 @@ Makefile.in
 /iptables-restore
 /iptables-static
 /iptables-xml
+/release
