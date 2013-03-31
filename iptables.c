@@ -1435,6 +1435,17 @@ int do_command(int argc, char *argv[], char **table, struct iptc_handle **handle
 				else rulenum = 1;
 				break;
 
+			case 'U':
+				add_command(&command, CMD_UPDATE, CMD_NONE,
+						invert);
+				chain = optarg;
+				if (optind < argc && argv[optind][0] != '-'
+						&& argv[optind][0] != '!')
+					rulenum = parse_rulenumber(argv[optind++]);
+				else rulenum = 1;
+				break;
+
+
 			case 'L':
 				add_command(&command, CMD_LIST, CMD_ZERO,
 						invert);
