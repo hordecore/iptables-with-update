@@ -802,7 +802,7 @@ insert_entry(const ipt_chainlabel chain,
 	unsigned int i, j;
 	int ret = 1;
 	printf("It's really insert!\n");
-	//printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n". rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
+	printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n", rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 	for (i = 0; i < nsaddrs; i++) {
 		printf("for i %d\n", i);
 		fw->ip.src.s_addr = saddrs[i].s_addr;
@@ -832,7 +832,7 @@ update_entry(const ipt_chainlabel chain,
 	unsigned int i, j;
 	int ret = 1;
 	printf("It's really update!\n");
-	//printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n". rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
+	printf("Input: rulenum %u, nsaddrs %u, ndaddrs %u, verbose %d, fw %p, handle %p\n", rulenum, nsaddrs, ndaddrs, verbose, fw, handle);
 
 	for (i = 0; i < nsaddrs; i++) {
 		printf("for i %d\n", i);
