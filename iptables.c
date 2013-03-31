@@ -102,6 +102,7 @@ static struct option original_opts[] = {
 	{.name = "append",        .has_arg = 1, .val = 'A'},
 	{.name = "delete",        .has_arg = 1, .val = 'D'},
 	{.name = "insert",        .has_arg = 1, .val = 'I'},
+	{.name = "update",        .has_arg = 1, .val = 'U'},
 	{.name = "replace",       .has_arg = 1, .val = 'R'},
 	{.name = "list",          .has_arg = 2, .val = 'L'},
 	{.name = "list-rules",    .has_arg = 2, .val = 'S'},
@@ -164,6 +165,7 @@ static char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =
 {
 	/*     -n  -s  -d  -p  -j  -v  -x  -i  -o  -f --line -c */
 /*INSERT*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
+/*UPDATE*/ //   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
 /*DELETE*/    {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x','x'},
 /*DELETE_NUM*/{'x','x','x','x','x',' ','x','x','x','x','x','x'},
 /*REPLACE*/   {'x',' ',' ',' ',' ',' ','x',' ',' ',' ','x',' '},
@@ -275,6 +277,9 @@ exit_printhelp(struct xtables_rule_match *matches)
 "				Delete rule rulenum (1 = first) from chain\n"
 "  --insert  -I chain [rulenum]\n"
 "				Insert in chain as rulenum (default 1=first)\n"
+"  --update  -U chain [rulenum]\n"
+"				Try to insert new rule in chain as rulenum (default 1),\n"
+"                               if here no such rule, else zero counters on this rule.\n"
 "  --replace -R chain rulenum\n"
 "				Replace rule rulenum (1 = first) in chain\n"
 "  --list    -L [chain [rulenum]]\n"
