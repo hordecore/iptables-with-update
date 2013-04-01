@@ -822,29 +822,48 @@ make_delete_mask(struct ipt_entry *fw, struct xtables_rule_match *matches)
 	unsigned int size;
 	struct xtables_rule_match *matchp;
 	unsigned char *mask, *mptr;
+	unsigned char *x;
+
+	printf("Params: fw: %p matches: %p\n", fw,matches);
 
 	size = sizeof(struct ipt_entry);
-	for (matchp = matches; matchp; matchp = matchp->next)
+	printf("Sizeof: %u\n", size);
+	for (matchp = matches; matchp; matchp = matchp->next) {
+		printf("match: matchp: %p match %p size %u\n", matchp, matchp->match, matchp->match->size);
 		size += IPT_ALIGN(sizeof(struct ipt_entry_match)) + matchp->match->size;
+	}
 
 	mask = xtables_calloc(1, size
 			+ IPT_ALIGN(sizeof(struct ipt_entry_target))
 			+ xtables_targets->size);
 
 	memset(mask, 0xFF, sizeof(struct ipt_entry));
+	
 	mptr = mask + sizeof(struct ipt_entry);
+
+	printf("And mask now is: %p\n", mask);
+	for (x=mask; x<mptr; x++)
+		printf("%X", &x);
+	printf("\n");
+
+	printf("mask-mptr: %p-%p\n", mask, mptr);
 
 	for (matchp = matches; matchp; matchp = matchp->next) {
 		memset(mptr, 0xFF,
 				IPT_ALIGN(sizeof(struct ipt_entry_match))
 				+ matchp->match->userspacesize);
 		mptr += IPT_ALIGN(sizeof(struct ipt_entry_match)) + matchp->match->size;
+		printf("Increase mptr with %u\n", matchp->match->size);
 	}
 
 	memset(mptr, 0xFF,
 			IPT_ALIGN(sizeof(struct ipt_entry_target))
 			+ xtables_targets->userspacesize);
-
+	printf("Set 0xFF to %u\n", (sizeof(struct ipt_entry_target)) + xtables_targets->userspacesize);
+	printf("And mask now is: %p\n", mask);
+	for (x=mask; x<mptr; x++)
+		printf("%X", &x);
+	printf("\n");
 	return mask;
 }
 
@@ -863,8 +882,8 @@ update_entry(const ipt_chainlabel chain,
 {
 	unsigned int i, j;
 	int ret = 1;
-//	unsigned char *mask;
-//	mask = make_delete_mask(fw, matches);
+	unsigned char *mask;
+	mask = make_delete_mask(fw, matches);
 //	printf("delete mask: %s\n", mask);
 
 	for (i = 0; i < nsaddrs; i++) {
